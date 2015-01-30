@@ -2,23 +2,25 @@ package AdminTests;
 
 import static org.junit.Assert.*;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Login
+import utility.Constants;
+
+public class ItemTests
 {
 	WebDriver driver;
-	WebElement element;
 	
 	@Before
 	public void setUp() throws Exception
@@ -33,25 +35,39 @@ public class Login
 		
 		driver.get("http://gauges.elasticbeanstalk.com");
 	}
-	
+
 	@After
 	public void closeBrowser() throws Exception
 	{
-		driver.quit();
+		//driver.quit();
+	}
+
+	@Test
+	public void addItem() throws InterruptedException
+	{
+		login();
+		
+		driver.findElement(By.id("goToFactory")).click();
+		
+		//waitForPageLoad(driver);
+		
+		//driver.findElement(By.xpath(Constants.xPathItemLeftNav)).click();
+		
+		//waitForPageLoad(driver);
+		
+		//driver.findElement(By.id("goToAddItem")).click();
+		
+		//waitForPageLoad(driver);
 	}
 	
-	@Test
-	public void login()
+	private void login()
 	{
-		element = driver.findElement(By.id("username"));
-		element.sendKeys("john.doe@abc.com");
+		driver.findElement(By.id("username")).sendKeys("john.doe@abc.com");
 		
-		element = driver.findElement(By.id("password"));
-		element.sendKeys("password");
+		driver.findElement(By.id("password")).sendKeys("password");
 		
-		element = driver.findElement(By.id("login-button"));
-		element.click();
-		
+		driver.findElement(By.id("login-button")).click();
+
 		waitForPageLoad(driver);
 		
 		String bodyText = driver.findElement(By.id("main-content")).getText();
@@ -68,7 +84,7 @@ public class Login
 	    	 		}
 	    		 };
 
-	     Wait<WebDriver> wait = new WebDriverWait(driver, 10);
+	     Wait<WebDriver> wait = new WebDriverWait(driver, 100000);
 	     try
 	     {
 	    	 wait.until(expectation);
@@ -78,4 +94,5 @@ public class Login
 	    	 assertFalse("Timeout waiting for Page Load Request to complete.", true);
 	     }
 	}
+
 }
