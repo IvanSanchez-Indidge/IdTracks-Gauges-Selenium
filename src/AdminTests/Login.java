@@ -6,19 +6,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login
 {
 	WebDriver driver;
-	WebElement element;
+	WebDriverWait wait;
 	
 	@Before
 	public void setUp() throws Exception
@@ -43,39 +40,17 @@ public class Login
 	@Test
 	public void login()
 	{
-		element = driver.findElement(By.id("username"));
-		element.sendKeys("john.doe@abc.com");
+		wait = new WebDriverWait(driver, 10);
 		
-		element = driver.findElement(By.id("password"));
-		element.sendKeys("password");
+		driver.findElement(By.id("username")).sendKeys("john.doe@abc.com");
 		
-		element = driver.findElement(By.id("login-button"));
-		element.click();
+		driver.findElement(By.id("password")).sendKeys("password");
 		
-		waitForPageLoad(driver);
+		driver.findElement(By.id("login-button")).click();
+		
+		wait.until(ExpectedConditions.titleIs("idTracks - Gauges"));
 		
 		String bodyText = driver.findElement(By.id("main-content")).getText();
 		assertTrue("Unsuccessful login!", bodyText.contains("Welcome to idTracks - Gauges (v0.1) , The manufacturing management solution for gauges, and other devices."));
-	}
-	
-	public void waitForPageLoad(WebDriver driver)
-	{
-		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>()
-	    		 {
-	    	 		public Boolean apply(WebDriver driver)
-	    	 		{
-	    	 			return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
-	    	 		}
-	    		 };
-
-	     Wait<WebDriver> wait = new WebDriverWait(driver, 10);
-	     try
-	     {
-	    	 wait.until(expectation);
-	     }
-	     catch(Throwable error)
-	     {
-	    	 assertFalse("Timeout waiting for Page Load Request to complete.", true);
-	     }
 	}
 }
