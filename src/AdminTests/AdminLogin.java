@@ -57,7 +57,7 @@ public class AdminLogin
 	
 	private void waitUntilTitle(String title)
 	{
-		wait.until(ExpectedConditions.titleIs("idTracks - Gauges"));
+		wait.until(ExpectedConditions.titleIs(title));
 	}
 
 	private WebElement findElementById(String id)
