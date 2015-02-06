@@ -7,12 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Login
+public class AdminLogin
 {
 	WebDriver driver;
 	WebDriverWait wait;
@@ -42,15 +43,35 @@ public class Login
 	{
 		wait = new WebDriverWait(driver, 10);
 		
-		driver.findElement(By.id("username")).sendKeys("john.doe@abc.com");
+		sendKeysById("username", "john.doe@abc.com");
 		
-		driver.findElement(By.id("password")).sendKeys("password");
+		sendKeysById("password", "password");
 		
-		driver.findElement(By.id("login-button")).click();
+		clickElementById("login-button");
 		
-		wait.until(ExpectedConditions.titleIs("idTracks - Gauges"));
+		waitUntilTitle("idTracks - Gauges");
 		
-		String bodyText = driver.findElement(By.id("main-content")).getText();
+		String bodyText = findElementById("main-content").getText();
 		assertTrue("Unsuccessful login!", bodyText.contains("Welcome to idTracks - Gauges (v0.1) , The manufacturing management solution for gauges, and other devices."));
+	}
+	
+	private void waitUntilTitle(String title)
+	{
+		wait.until(ExpectedConditions.titleIs("idTracks - Gauges"));
+	}
+
+	private WebElement findElementById(String id)
+	{
+		return driver.findElement(By.id(id));
+	}
+	
+	private void clickElementById(String id)
+	{
+		driver.findElement(By.id(id)).click();
+	}
+	
+	private void sendKeysById(String id, String textSent)
+	{
+		driver.findElement(By.id(id)).sendKeys(textSent);
 	}
 }

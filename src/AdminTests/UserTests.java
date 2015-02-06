@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utility.Constants;
 
-public class ItemTests
+public class UserTests
 {
 	WebDriver driver;
 	WebDriverWait wait;
@@ -47,7 +47,7 @@ public class ItemTests
 	}
 
 	@Test
-	public void addItem() throws InterruptedException
+	public void addUser() throws InterruptedException
 	{
 		wait = new WebDriverWait(driver, 10);
 		
@@ -57,58 +57,44 @@ public class ItemTests
 		
 		clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
+		waitUntilxPath("/html/body[@class='no-skin']/div[@id='main-container']/div[@id='sidebar']/ul[@class='nav nav-list']/li[@class='hsub open']/ul[@class='submenu nav-show']/li[@class='hsub open']/a[@class='dropdown-toggle']");
 		
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		clickElementByxPath(Constants.xPathUserLeftNav);
 		
-		waitUntilId(Constants.idGoToAddItem);
+		waitUntilId(Constants.idGoToAddUser);
 		
-		clickElementById(Constants.idGoToAddItem);
+		clickElementById(Constants.idGoToAddUser);
 		
-		waitUntilId("itemName");
+		waitUntilId("firstName");
 		
-		sendKeysById("itemName", "Selenium Test Item 3");
+		sendKeysById("firstName", "Selenium First Name");
 		
-		sendKeysById("description", "Selenium Test Description");
+		sendKeysById("lastName", "Selenium Last Name");
 		
-		element = findElementById("ownerEmail");
+		sendKeysById("form-field-email", "selenium.test@abc.com");
+		
+		sendKeysById("form-field-phone", "(123) 456-7890");
+		
+		sendKeysById("company", "Selenium Test Company");
+		
+		sendKeysById("department", "Selenium Test Department");
+		
+		sendKeysById("password", "password");
+		
+		element = findElementById("form-field-select-2");
 		clickThis = new Select(element);
-		clickThis.selectByVisibleText("John Doe (john.doe@abc.com)");
+		clickThis.selectByVisibleText("admin");
 		
-		sendKeysById("trackName", "Selenium Test Track Name");
+		clickElementById("createUserButton");
 		
-		clickElementByxPath(Constants.xPathAddItemPageGaugeRadioButton);
+		waitUntilId("userCreateAlert");
 		
-		sendKeysById("datePM", "01/01/2020");
-		
-		element = findElementById("initialLocationName");
-		clickThis = new Select(element);
-		clickThis.selectByVisibleText("Factory1");
-		
-		clickElementById("lengthPM");
-		clearElementById("lengthPM");
-		sendKeysById("lengthPM", "10");
-		
-		clearElementById("timeDefaultCheckout");
-		sendKeysById("timeDefaultCheckout", "10");
-		
-		clearElementById("timeDefaultUsage");
-		sendKeysById("timeDefaultUsage", "10");
-		
-		clearElementById("costPM");
-		sendKeysById("costPM", "10");
-		
-		clickElementById("createItemButton");
-		
-		waitUntilId("itemCreateAlert");
-		
-		String successMessage = findElementById("itemCreateAlert").getText();
-		assertTrue("Item not created successfully!", successMessage.contains("Success! Item has been added."));
+		String successMessage = findElementById("userCreateAlert").getText();
+		assertTrue("User not created successfully!", successMessage.contains("Success! User has been added."));
 	}
-	
 	/*
 	@Test
-	public void editItem()
+	public void editUser()
 	{
 		wait = new WebDriverWait(driver, 10);
 		
@@ -144,7 +130,7 @@ public class ItemTests
 	}
 	
 	@Test
-	public void deactivateItem()
+	public void deactivateUser()
 	{
 		wait = new WebDriverWait(driver, 10);
 		

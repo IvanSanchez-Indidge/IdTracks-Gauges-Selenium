@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utility.Constants;
 
-public class ItemTests
+public class LocationTests
 {
 	WebDriver driver;
 	WebDriverWait wait;
@@ -47,7 +47,7 @@ public class ItemTests
 	}
 
 	@Test
-	public void addItem() throws InterruptedException
+	public void addLocation() throws InterruptedException
 	{
 		wait = new WebDriverWait(driver, 10);
 		
@@ -57,17 +57,17 @@ public class ItemTests
 		
 		clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
+		waitUntilxPath(Constants.xPathLocationLeftNav);
 		
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		clickElementByxPath(Constants.xPathLocationLeftNav);
 		
-		waitUntilId(Constants.idGoToAddItem);
+		waitUntilId(Constants.idGoToAddLocation);
 		
-		clickElementById(Constants.idGoToAddItem);
+		clickElementById(Constants.idGoToAddLocation);
 		
-		waitUntilId("itemName");
+		waitUntilId("locationName");
 		
-		sendKeysById("itemName", "Selenium Test Item 3");
+		sendKeysById("locationName", "Selenium Test Location");
 		
 		sendKeysById("description", "Selenium Test Description");
 		
@@ -75,40 +75,21 @@ public class ItemTests
 		clickThis = new Select(element);
 		clickThis.selectByVisibleText("John Doe (john.doe@abc.com)");
 		
-		sendKeysById("trackName", "Selenium Test Track Name");
+		sendKeysById("trackName", "Test Track Name");
 		
-		clickElementByxPath(Constants.xPathAddItemPageGaugeRadioButton);
+		clickElementByxPath(Constants.xPathAddLocationPageFactoryRadioButton);
 		
-		sendKeysById("datePM", "01/01/2020");
+		clickElementById("createLocationButton");
 		
-		element = findElementById("initialLocationName");
-		clickThis = new Select(element);
-		clickThis.selectByVisibleText("Factory1");
+		waitUntilId("locationCreateAlert");
 		
-		clickElementById("lengthPM");
-		clearElementById("lengthPM");
-		sendKeysById("lengthPM", "10");
-		
-		clearElementById("timeDefaultCheckout");
-		sendKeysById("timeDefaultCheckout", "10");
-		
-		clearElementById("timeDefaultUsage");
-		sendKeysById("timeDefaultUsage", "10");
-		
-		clearElementById("costPM");
-		sendKeysById("costPM", "10");
-		
-		clickElementById("createItemButton");
-		
-		waitUntilId("itemCreateAlert");
-		
-		String successMessage = findElementById("itemCreateAlert").getText();
-		assertTrue("Item not created successfully!", successMessage.contains("Success! Item has been added."));
+		String successMessage = findElementById("locationCreateAlert").getText();
+		assertTrue("Location not created successfully!", successMessage.contains("Success! Location has been added."));
 	}
 	
 	/*
 	@Test
-	public void editItem()
+	public void editLocation()
 	{
 		wait = new WebDriverWait(driver, 10);
 		
@@ -120,31 +101,31 @@ public class ItemTests
 		waitUntilxPath(Constants.xPathItemLeftNav);
 		clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAllItems);
-		clickElementById(Constants.idGoToAllItems);
+		waitUntilId(Constants.idGoToAllLocations);
+		clickElementById(Constants.idGoToAllLocations);
 		
 		waitUntilId("item-table");
 		
 		//TODO: Code that selects edit button
 		
-		waitUntilxPath(Constants.xPathItemManagementPageTitle);
+		waitUntilxPath(Constants.xPathLocationManagementPageTitle);
 		
-		clickElementByxPath(Constants.xPathItemManagementPageEditItemButton);
+		clickElementByxPath(Constants.xPathLocationManagementPageEditLocationButton);
 		
 		waitUntilId("basicModal");
 		
-		clearElementById("trackName");
-		sendKeysById("trackName", "Changed Track Name");
+		clearElementById("description");
+		sendKeysById("description", "Changed Description");
 		
-		clickElementById("saveEditItem");
+		clickElementById("saveEditLocation");
 		
-		waitUntilId("editItemAlert");
+		waitUntilId("editLocationAlert");
 		
 		//TODO: Assert
 	}
 	
 	@Test
-	public void deactivateItem()
+	public void deactivateLocation()
 	{
 		wait = new WebDriverWait(driver, 10);
 		
@@ -156,17 +137,17 @@ public class ItemTests
 		waitUntilxPath(Constants.xPathItemLeftNav);
 		clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAllItems);
-		clickElementById(Constants.idGoToAllItems);
+		waitUntilId(Constants.idGoToAllLocations);
+		clickElementById(Constants.idGoToAllLocations);
 		
 		waitUntilId("item-table");
 		
 		// TODO: Code that selects deactivate button
 		
-		waitUntilId("itemDeactivatedAlert");
+		waitUntilId("locationDeactivatedAlert");
 		
-		String successMessage = findElementById("itemDeactivatedAlert").getText();
-		assertTrue("Item not deactivated successfully!", successMessage.contains("Success! Item has been deactivated."));
+		String successMessage = findElementById("locationDeactivatedAlert").getText();
+		assertTrue("Location not deactivated successfully!", successMessage.contains("Success! Location has been deactivated."));
 	}
 	*/
 	
