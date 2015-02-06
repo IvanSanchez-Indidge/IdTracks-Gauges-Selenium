@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import utility.SeleniumFunctions;
 
-public class AdminLogin
+public class A_AdminLogin
 {
 	SeleniumFunctions selenium = new SeleniumFunctions();
 	

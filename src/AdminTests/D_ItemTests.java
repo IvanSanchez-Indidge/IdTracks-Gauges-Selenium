@@ -9,7 +9,7 @@ import org.junit.Test;
 import utility.Constants;
 import utility.SeleniumFunctions;
 
-public class UserTests
+public class D_ItemTests
 {
 	SeleniumFunctions selenium = new SeleniumFunctions();
 	
@@ -26,7 +26,7 @@ public class UserTests
 	}
 
 	@Test
-	public void addUser() throws InterruptedException
+	public void addItem() throws InterruptedException
 	{
 		selenium.setUpWait();
 		
@@ -36,42 +36,54 @@ public class UserTests
 		
 		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		selenium.waitUntilxPath(Constants.xPathUserLeftNav);
+		selenium.waitUntilxPath(Constants.xPathItemLeftNav);
 		
-		selenium.clickElementByxPath(Constants.xPathUserLeftNav);
+		selenium.clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		selenium.waitUntilId(Constants.idGoToAddUser);
+		selenium.waitUntilId(Constants.idGoToAddItem);
 		
-		selenium.clickElementById(Constants.idGoToAddUser);
+		selenium.clickElementById(Constants.idGoToAddItem);
 		
-		selenium.waitUntilId("firstName");
+		selenium.waitUntilId("itemName");
 		
-		selenium.sendKeysById("firstName", "Selenium First Name");
+		selenium.sendKeysById("itemName", "Selenium Test Item 3");
 		
-		selenium.sendKeysById("lastName", "Selenium Last Name");
+		selenium.sendKeysById("description", "Selenium Test Description");
 		
-		selenium.sendKeysById("form-field-email", "selenium.test@abc.com");
+		selenium.selectVisibleTextById("ownerEmail", "John Doe (john.doe@abc.com)");
 		
-		selenium.sendKeysById("form-field-phone", "(123) 456-7890");
+		selenium.sendKeysById("trackName", "Selenium Test Track Name");
 		
-		selenium.sendKeysById("company", "Selenium Test Company");
+		selenium.clickElementByxPath(Constants.xPathAddItemPageGaugeRadioButton);
 		
-		selenium.sendKeysById("department", "Selenium Test Department");
+		selenium.sendKeysById("datePM", "01/01/2020");
 		
-		selenium.sendKeysById("password", "password");
+		selenium.selectVisibleTextById("initialLocationName", "Factory1");
 		
-		selenium.selectVisibleTextById("form-field-select-2", "admin");
+		selenium.clickElementById("lengthPM");
+		selenium.clearElementById("lengthPM");
+		selenium.sendKeysById("lengthPM", "10");
 		
-		selenium.clickElementById("createUserButton");
+		selenium.clearElementById("timeDefaultCheckout");
+		selenium.sendKeysById("timeDefaultCheckout", "10");
 		
-		selenium.waitUntilId("userCreateAlert");
+		selenium.clearElementById("timeDefaultUsage");
+		selenium.sendKeysById("timeDefaultUsage", "10");
 		
-		boolean successMessage = selenium.findElementById("userCreateAlert").isDisplayed();
-		assertTrue("User not created successfully!", successMessage);
+		selenium.clearElementById("costPM");
+		selenium.sendKeysById("costPM", "10");
+		
+		selenium.clickElementById("createItemButton");
+		
+		selenium.waitUntilId("itemCreateAlert");
+		
+		boolean successMessage = selenium.findElementById("itemCreateAlert").isDisplayed();
+		assertTrue("Item not created successfully!", successMessage);
 	}
+	
 	/*
 	@Test
-	public void editUser()
+	public void editItem()
 	{
 		selenium.setUpWait();
 		
@@ -107,7 +119,7 @@ public class UserTests
 	}
 	
 	@Test
-	public void deactivateUser()
+	public void deactivateItem()
 	{
 		selenium.setUpWait();
 		

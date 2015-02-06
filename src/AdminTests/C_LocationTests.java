@@ -9,7 +9,7 @@ import org.junit.Test;
 import utility.Constants;
 import utility.SeleniumFunctions;
 
-public class LocationTests
+public class C_LocationTests
 {
 	SeleniumFunctions selenium = new SeleniumFunctions();
 	
