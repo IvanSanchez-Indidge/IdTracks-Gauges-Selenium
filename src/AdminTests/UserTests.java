@@ -57,7 +57,7 @@ public class UserTests
 		
 		clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath("/html/body[@class='no-skin']/div[@id='main-container']/div[@id='sidebar']/ul[@class='nav nav-list']/li[@class='hsub open']/ul[@class='submenu nav-show']/li[@class='hsub open']/a[@class='dropdown-toggle']");
+		waitUntilxPath(Constants.xPathUserLeftNav);
 		
 		clickElementByxPath(Constants.xPathUserLeftNav);
 		
@@ -89,8 +89,8 @@ public class UserTests
 		
 		waitUntilId("userCreateAlert");
 		
-		String successMessage = findElementById("userCreateAlert").getText();
-		assertTrue("User not created successfully!", successMessage.contains("Success! User has been added."));
+		boolean successMessage = findElementById("userCreateAlert").isDisplayed();
+		assertTrue("User not created successfully!", successMessage);
 	}
 	/*
 	@Test

@@ -102,8 +102,8 @@ public class ItemTests
 		
 		waitUntilId("itemCreateAlert");
 		
-		String successMessage = findElementById("itemCreateAlert").getText();
-		assertTrue("Item not created successfully!", successMessage.contains("Success! Item has been added."));
+		boolean successMessage = findElementById("itemCreateAlert").isDisplayed();
+		assertTrue("Item not created successfully!", successMessage);
 	}
 	
 	/*

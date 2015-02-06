@@ -83,8 +83,8 @@ public class LocationTests
 		
 		waitUntilId("locationCreateAlert");
 		
-		String successMessage = findElementById("locationCreateAlert").getText();
-		assertTrue("Location not created successfully!", successMessage.contains("Success! Location has been added."));
+		boolean successMessage = findElementById("locationCreateAlert").isDisplayed();
+		assertTrue("Location not created successfully!", successMessage);
 	}
 	
 	/*
