@@ -2,107 +2,82 @@ package AdminTests;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utility.Constants;
+import utility.SeleniumFunctions;
 
 public class ItemTests
 {
-	WebDriver driver;
-	WebDriverWait wait;
-	WebElement element;
-	List<WebElement> elements;
-	Select clickThis;
+	SeleniumFunctions selenium = new SeleniumFunctions();
 	
 	@Before
 	public void setUp() throws Exception
 	{	
-		DesiredCapabilities chromeCapabilities = DesiredCapabilities.chrome();
-		
-		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-		
-		driver = new ChromeDriver(chromeCapabilities);
-		
-		driver.manage().window().maximize();
-		
-		driver.get("http://gauges.elasticbeanstalk.com");
+		selenium.setUp();
 	}
 
 	@After
 	public void closeBrowser() throws Exception
 	{
-		driver.quit();
+		selenium.closeBrowser();
 	}
 
 	@Test
 	public void addItem() throws InterruptedException
 	{
-		wait = new WebDriverWait(driver, 10);
+		selenium.setUpWait();
 		
-		login();
+		selenium.adminLogin();
 		
-		waitUntilxPath(Constants.xPathAdminLeftNav);
+		selenium.waitUntilxPath(Constants.xPathAdminLeftNav);
 		
-		clickElementByxPath(Constants.xPathAdminLeftNav);
+		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
+		selenium.waitUntilxPath(Constants.xPathItemLeftNav);
 		
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		selenium.clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAddItem);
+		selenium.waitUntilId(Constants.idGoToAddItem);
 		
-		clickElementById(Constants.idGoToAddItem);
+		selenium.clickElementById(Constants.idGoToAddItem);
 		
-		waitUntilId("itemName");
+		selenium.waitUntilId("itemName");
 		
-		sendKeysById("itemName", "Selenium Test Item 3");
+		selenium.sendKeysById("itemName", "Selenium Test Item 3");
 		
-		sendKeysById("description", "Selenium Test Description");
+		selenium.sendKeysById("description", "Selenium Test Description");
 		
-		element = findElementById("ownerEmail");
-		clickThis = new Select(element);
-		clickThis.selectByVisibleText("John Doe (john.doe@abc.com)");
+		selenium.selectVisibleTextById("ownerEmail", "John Doe (john.doe@abc.com)");
 		
-		sendKeysById("trackName", "Selenium Test Track Name");
+		selenium.sendKeysById("trackName", "Selenium Test Track Name");
 		
-		clickElementByxPath(Constants.xPathAddItemPageGaugeRadioButton);
+		selenium.clickElementByxPath(Constants.xPathAddItemPageGaugeRadioButton);
 		
-		sendKeysById("datePM", "01/01/2020");
+		selenium.sendKeysById("datePM", "01/01/2020");
 		
-		element = findElementById("initialLocationName");
-		clickThis = new Select(element);
-		clickThis.selectByVisibleText("Factory1");
+		selenium.selectVisibleTextById("initialLocationName", "Factory1");
 		
-		clickElementById("lengthPM");
-		clearElementById("lengthPM");
-		sendKeysById("lengthPM", "10");
+		selenium.clickElementById("lengthPM");
+		selenium.clearElementById("lengthPM");
+		selenium.sendKeysById("lengthPM", "10");
 		
-		clearElementById("timeDefaultCheckout");
-		sendKeysById("timeDefaultCheckout", "10");
+		selenium.clearElementById("timeDefaultCheckout");
+		selenium.sendKeysById("timeDefaultCheckout", "10");
 		
-		clearElementById("timeDefaultUsage");
-		sendKeysById("timeDefaultUsage", "10");
+		selenium.clearElementById("timeDefaultUsage");
+		selenium.sendKeysById("timeDefaultUsage", "10");
 		
-		clearElementById("costPM");
-		sendKeysById("costPM", "10");
+		selenium.clearElementById("costPM");
+		selenium.sendKeysById("costPM", "10");
 		
-		clickElementById("createItemButton");
+		selenium.clickElementById("createItemButton");
 		
-		waitUntilId("itemCreateAlert");
+		selenium.waitUntilId("itemCreateAlert");
 		
-		boolean successMessage = findElementById("itemCreateAlert").isDisplayed();
+		boolean successMessage = selenium.findElementById("itemCreateAlert").isDisplayed();
 		assertTrue("Item not created successfully!", successMessage);
 	}
 	
@@ -110,35 +85,35 @@ public class ItemTests
 	@Test
 	public void editItem()
 	{
-		wait = new WebDriverWait(driver, 10);
+		selenium.setUpWait();
 		
-		login();
+		selenium.adminLogin();
 		
-		waitUntilxPath(Constants.xPathAdminLeftNav);
-		clickElementByxPath(Constants.xPathAdminLeftNav);
+		selenium.waitUntilxPath(Constants.xPathAdminLeftNav);
+		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		selenium.waitUntilxPath(Constants.xPathItemLeftNav);
+		selenium.clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAllItems);
-		clickElementById(Constants.idGoToAllItems);
+		selenium.waitUntilId(Constants.idGoToAllItems);
+		selenium.clickElementById(Constants.idGoToAllItems);
 		
-		waitUntilId("item-table");
+		selenium.waitUntilId("item-table");
 		
 		//TODO: Code that selects edit button
 		
-		waitUntilxPath(Constants.xPathItemManagementPageTitle);
+		selenium.waitUntilxPath(Constants.xPathItemManagementPageTitle);
 		
-		clickElementByxPath(Constants.xPathItemManagementPageEditItemButton);
+		selenium.clickElementByxPath(Constants.xPathItemManagementPageEditItemButton);
 		
-		waitUntilId("basicModal");
+		selenium.waitUntilId("basicModal");
 		
-		clearElementById("trackName");
-		sendKeysById("trackName", "Changed Track Name");
+		selenium.clearElementById("trackName");
+		selenium.sendKeysById("trackName", "Changed Track Name");
 		
-		clickElementById("saveEditItem");
+		selenium.clickElementById("saveEditItem");
 		
-		waitUntilId("editItemAlert");
+		selenium.waitUntilId("editItemAlert");
 		
 		//TODO: Assert
 	}
@@ -146,71 +121,27 @@ public class ItemTests
 	@Test
 	public void deactivateItem()
 	{
-		wait = new WebDriverWait(driver, 10);
+		selenium.setUpWait();
 		
-		login();
+		selenium.adminLogin();
 		
-		waitUntilxPath(Constants.xPathAdminLeftNav);
-		clickElementByxPath(Constants.xPathAdminLeftNav);
+		selenium.waitUntilxPath(Constants.xPathAdminLeftNav);
+		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		selenium.waitUntilxPath(Constants.xPathItemLeftNav);
+		selenium.clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAllItems);
-		clickElementById(Constants.idGoToAllItems);
+		selenium.waitUntilId(Constants.idGoToAllItems);
+		selenium.clickElementById(Constants.idGoToAllItems);
 		
-		waitUntilId("item-table");
+		selenium.waitUntilId("item-table");
 		
 		// TODO: Code that selects deactivate button
 		
-		waitUntilId("itemDeactivatedAlert");
+		selenium.waitUntilId("itemDeactivatedAlert");
 		
-		String successMessage = findElementById("itemDeactivatedAlert").getText();
+		String successMessage = selenium.findElementById("itemDeactivatedAlert").getText();
 		assertTrue("Item not deactivated successfully!", successMessage.contains("Success! Item has been deactivated."));
 	}
 	*/
-	
-	private void login()
-	{	
-		sendKeysById("username", "john.doe@abc.com");
-		
-		sendKeysById("password", "password");
-		
-		clickElementById("login-button");	
-	}
-	
-	private void waitUntilxPath(String xPath)
-	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
-	}
-	
-	private void waitUntilId(String id)
-	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
-	}
-
-	private WebElement findElementById(String id)
-	{
-		return driver.findElement(By.id(id));
-	}
-	
-	private void clickElementByxPath(String xPath)
-	{
-		driver.findElement(By.xpath(xPath)).click();
-	}
-	
-	private void clickElementById(String id)
-	{
-		driver.findElement(By.id(id)).click();
-	}
-	
-	private void sendKeysById(String id, String textSent)
-	{
-		driver.findElement(By.id(id)).sendKeys(textSent);
-	}
-	
-	private void clearElementById(String id)
-	{
-		driver.findElement(By.id(id)).clear();
-	}
 }

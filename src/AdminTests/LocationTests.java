@@ -2,88 +2,65 @@ package AdminTests;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utility.Constants;
+import utility.SeleniumFunctions;
 
 public class LocationTests
 {
-	WebDriver driver;
-	WebDriverWait wait;
-	WebElement element;
-	List<WebElement> elements;
-	Select clickThis;
+	SeleniumFunctions selenium = new SeleniumFunctions();
 	
 	@Before
 	public void setUp() throws Exception
 	{	
-		DesiredCapabilities chromeCapabilities = DesiredCapabilities.chrome();
-		
-		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-		
-		driver = new ChromeDriver(chromeCapabilities);
-		
-		driver.manage().window().maximize();
-		
-		driver.get("http://gauges.elasticbeanstalk.com");
+		selenium.setUp();
 	}
 
 	@After
 	public void closeBrowser() throws Exception
 	{
-		driver.quit();
+		selenium.closeBrowser();
 	}
 
 	@Test
 	public void addLocation() throws InterruptedException
 	{
-		wait = new WebDriverWait(driver, 10);
+		selenium.setUpWait();
 		
-		login();
+		selenium.adminLogin();
 		
-		waitUntilxPath(Constants.xPathAdminLeftNav);
+		selenium.waitUntilxPath(Constants.xPathAdminLeftNav);
 		
-		clickElementByxPath(Constants.xPathAdminLeftNav);
+		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathLocationLeftNav);
+		selenium.waitUntilxPath(Constants.xPathLocationLeftNav);
 		
-		clickElementByxPath(Constants.xPathLocationLeftNav);
+		selenium.clickElementByxPath(Constants.xPathLocationLeftNav);
 		
-		waitUntilId(Constants.idGoToAddLocation);
+		selenium.waitUntilId(Constants.idGoToAddLocation);
 		
-		clickElementById(Constants.idGoToAddLocation);
+		selenium.clickElementById(Constants.idGoToAddLocation);
 		
-		waitUntilId("locationName");
+		selenium.waitUntilId("locationName");
 		
-		sendKeysById("locationName", "Selenium Test Location");
+		selenium.sendKeysById("locationName", "Selenium Test Location");
 		
-		sendKeysById("description", "Selenium Test Description");
+		selenium.sendKeysById("description", "Selenium Test Description");
 		
-		element = findElementById("ownerEmail");
-		clickThis = new Select(element);
-		clickThis.selectByVisibleText("John Doe (john.doe@abc.com)");
+		selenium.selectVisibleTextById("ownerEmail", "John Doe (john.doe@abc.com)");
 		
-		sendKeysById("trackName", "Test Track Name");
+		selenium.sendKeysById("trackName", "Test Track Name");
 		
-		clickElementByxPath(Constants.xPathAddLocationPageFactoryRadioButton);
+		selenium.clickElementByxPath(Constants.xPathAddLocationPageFactoryRadioButton);
 		
-		clickElementById("createLocationButton");
+		selenium.clickElementById("createLocationButton");
 		
-		waitUntilId("locationCreateAlert");
+		selenium.waitUntilId("locationCreateAlert");
 		
-		boolean successMessage = findElementById("locationCreateAlert").isDisplayed();
+		boolean successMessage = selenium.findElementById("locationCreateAlert").isDisplayed();
 		assertTrue("Location not created successfully!", successMessage);
 	}
 	
@@ -91,35 +68,35 @@ public class LocationTests
 	@Test
 	public void editLocation()
 	{
-		wait = new WebDriverWait(driver, 10);
+		selenium.setUpWait();
 		
-		login();
+		selenium.adminLogin();
 		
-		waitUntilxPath(Constants.xPathAdminLeftNav);
-		clickElementByxPath(Constants.xPathAdminLeftNav);
+		selenium.waitUntilxPath(Constants.xPathAdminLeftNav);
+		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		selenium.waitUntilxPath(Constants.xPathItemLeftNav);
+		selenium.clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAllLocations);
-		clickElementById(Constants.idGoToAllLocations);
+		selenium.waitUntilId(Constants.idGoToAllLocations);
+		selenium.clickElementById(Constants.idGoToAllLocations);
 		
-		waitUntilId("item-table");
+		selenium.waitUntilId("item-table");
 		
 		//TODO: Code that selects edit button
 		
-		waitUntilxPath(Constants.xPathLocationManagementPageTitle);
+		selenium.waitUntilxPath(Constants.xPathLocationManagementPageTitle);
 		
-		clickElementByxPath(Constants.xPathLocationManagementPageEditLocationButton);
+		selenium.clickElementByxPath(Constants.xPathLocationManagementPageEditLocationButton);
 		
-		waitUntilId("basicModal");
+		selenium.waitUntilId("basicModal");
 		
-		clearElementById("description");
-		sendKeysById("description", "Changed Description");
+		selenium.clearElementById("description");
+		selenium.sendKeysById("description", "Changed Description");
 		
-		clickElementById("saveEditLocation");
+		selenium.clickElementById("saveEditLocation");
 		
-		waitUntilId("editLocationAlert");
+		selenium.waitUntilId("editLocationAlert");
 		
 		//TODO: Assert
 	}
@@ -127,71 +104,27 @@ public class LocationTests
 	@Test
 	public void deactivateLocation()
 	{
-		wait = new WebDriverWait(driver, 10);
+		selenium.setUpWait();
 		
-		login();
+		selenium.adminLogin();
 		
-		waitUntilxPath(Constants.xPathAdminLeftNav);
-		clickElementByxPath(Constants.xPathAdminLeftNav);
+		selenium.waitUntilxPath(Constants.xPathAdminLeftNav);
+		selenium.clickElementByxPath(Constants.xPathAdminLeftNav);
 		
-		waitUntilxPath(Constants.xPathItemLeftNav);
-		clickElementByxPath(Constants.xPathItemLeftNav);
+		selenium.waitUntilxPath(Constants.xPathItemLeftNav);
+		selenium.clickElementByxPath(Constants.xPathItemLeftNav);
 		
-		waitUntilId(Constants.idGoToAllLocations);
-		clickElementById(Constants.idGoToAllLocations);
+		selenium.waitUntilId(Constants.idGoToAllLocations);
+		selenium.clickElementById(Constants.idGoToAllLocations);
 		
-		waitUntilId("item-table");
+		selenium.waitUntilId("item-table");
 		
 		// TODO: Code that selects deactivate button
 		
-		waitUntilId("locationDeactivatedAlert");
+		selenium.waitUntilId("locationDeactivatedAlert");
 		
-		String successMessage = findElementById("locationDeactivatedAlert").getText();
+		String successMessage = selenium.findElementById("locationDeactivatedAlert").getText();
 		assertTrue("Location not deactivated successfully!", successMessage.contains("Success! Location has been deactivated."));
 	}
 	*/
-	
-	private void login()
-	{	
-		sendKeysById("username", "john.doe@abc.com");
-		
-		sendKeysById("password", "password");
-		
-		clickElementById("login-button");	
-	}
-	
-	private void waitUntilxPath(String xPath)
-	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
-	}
-	
-	private void waitUntilId(String id)
-	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
-	}
-
-	private WebElement findElementById(String id)
-	{
-		return driver.findElement(By.id(id));
-	}
-	
-	private void clickElementByxPath(String xPath)
-	{
-		driver.findElement(By.xpath(xPath)).click();
-	}
-	
-	private void clickElementById(String id)
-	{
-		driver.findElement(By.id(id)).click();
-	}
-	
-	private void sendKeysById(String id, String textSent)
-	{
-		driver.findElement(By.id(id)).sendKeys(textSent);
-	}
-	
-	private void clearElementById(String id)
-	{
-		driver.findElement(By.id(id)).clear();
-	}
 }
