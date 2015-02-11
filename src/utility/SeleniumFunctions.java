@@ -15,11 +15,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumFunctions
 {
-	WebDriver driver;
-	WebDriverWait wait;
-	WebElement element;
-	List<WebElement> elements;
-	Select clickThis;
+	public WebDriver driver;
+	public WebDriverWait wait;
+	public WebElement element;
+	public List<WebElement> elements;
+	public List<WebElement> tr_collection;
+	public List<WebElement> td_collection;
+	public Select clickThis;
 	
 	public void setUp() throws Exception
 	{	
@@ -120,5 +122,28 @@ public class SeleniumFunctions
 		element = findElementById(id);
 		clickThis = new Select(element);
 		clickThis.selectByVisibleText(textToSelect);
+	}
+	
+	public boolean findTextInTableById(String tableId, String textYouAreLookingFor)
+	{
+		boolean textFound = false;
+		
+		element = driver.findElement(By.id(tableId));
+		tr_collection = element.findElements(By.xpath("id('" + tableId + "')/tbody/tr"));
+		
+		for(WebElement trElement : tr_collection)
+		{
+			td_collection = trElement.findElements(By.xpath("td"));
+			
+			for(WebElement tdElement : td_collection)
+			{
+				if(tdElement.getText() == textYouAreLookingFor)
+				{
+					textFound = true;
+				}
+			}
+		}
+		
+		return textFound;
 	}
 }

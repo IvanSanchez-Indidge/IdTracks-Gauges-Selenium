@@ -68,6 +68,11 @@ public class B_UserTests
 		
 		boolean successMessage = selenium.findElementById("userCreateAlert").isDisplayed();
 		assertTrue("User not created successfully!", successMessage);
+		
+		//selenium.sendKeysByxPath(Constants.xPathAllUsersPageSearch, "selenium.test1@abc.com");
+		
+		boolean userFound = selenium.findTextInTableById("item-table", "selenium.test1@abc.com");
+		assertTrue("User was not found in data table", userFound);
 	}
 	
 	@Test
@@ -113,6 +118,9 @@ public class B_UserTests
 		
 		boolean successMessage = selenium.findElementById("userCreateAlert").isDisplayed();
 		assertTrue("User not created successfully!", successMessage);
+		
+		boolean userFound = selenium.findTextInTableById("item-table", "selenium.test2!@#$%^&*()@abc.com");
+		assertTrue("User was not found in data table", userFound);
 	}
 	
 	@Test
@@ -212,6 +220,33 @@ public class B_UserTests
 		
 		assertTrue("User was created without Company", messageDisplayed);
 		assertTrue("Wrong Department Error Message", message.contentEquals("Check Department field and resubmit!"));
+		
+		//	Clears password and checks
+		selenium.sendKeysById("department", "Selenium Test Department");
+		selenium.clearElementById("password");
+		selenium.clickElementById("createUserButton");
+			
+		messageDisplayed = selenium.findElementById("userError").isDisplayed();
+		message = selenium.findElementById("userError").getText();
+		
+		assertTrue("User was created without Password", messageDisplayed);
+		assertTrue("Wrong Password Error Message", message.contentEquals("Check Password field and resubmit!"));
+		
+		//	Clears role and checks
+		selenium.sendKeysById("password", "password");
+		selenium.clearElementById("form-field-select-2");
+		selenium.clickElementById("createUserButton");
+		
+		messageDisplayed = selenium.findElementById("userError").isDisplayed();
+		message = selenium.findElementById("userError").getText();
+		
+		assertTrue("User was created without a Role", messageDisplayed);
+		assertTrue("Wrong Role Error Message", message.contentEquals("Please select at least one role for user."));
+		
+		// Finally complete user add
+		selenium.selectVisibleTextById("form-field-select-2", "admin");
+		
+		selenium.clickElementById("createUserButton");
 	}
 	/*
 	@Test
