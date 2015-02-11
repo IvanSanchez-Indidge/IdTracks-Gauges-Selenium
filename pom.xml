@@ -6,31 +6,28 @@
     <groupId>IdTracks-Gauges-Selenium</groupId>
     <artifactId>IdTracks-Gauges-Selenium</artifactId>
     <version>1.0</version>
+    
+    <properties>
+    	<hibernate.version>4.2.6.Final</hibernate.version>
+    	<mysql.version>5.1.26</mysql.version>
+    	<selenium.version>2.44.0</selenium.version>
+    </properties>
+    
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.44.0</version>
+            <version>${selenium.version}</version>
         </dependency>
-        <dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-chrome-driver</artifactId>
-			<version>2.44.0</version><!--$NO-MVN-MAN-VER$-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
 		</dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-               <groupId>org.seleniumhq.selenium</groupId>
-                <artifactId>selenium-chrome-driver</artifactId>
-                <version>2.44.0</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.seleniumhq.selenium</groupId>
-                        <artifactId>selenium-remote-driver</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>
