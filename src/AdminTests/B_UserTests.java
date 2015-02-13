@@ -2,16 +2,20 @@ package AdminTests;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import utility.Constants;
+import utility.MySQLAccess;
 import utility.SeleniumFunctions;
 
 public class B_UserTests
 {
 	SeleniumFunctions selenium = new SeleniumFunctions();
+	MySQLAccess mySQL = new MySQLAccess();
 	
 	@Before
 	public void setUp() throws Exception
@@ -24,9 +28,10 @@ public class B_UserTests
 	{
 		selenium.closeBrowser();
 	}
-
+	
+	//	Selenium User 1
 	@Test
-	public void addUser_1() throws InterruptedException
+	public void addUser_1() throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		selenium.setUpWait();
 		
@@ -48,7 +53,7 @@ public class B_UserTests
 		
 		selenium.sendKeysById("firstName", "Selenium First Name 1");
 		
-		selenium.sendKeysById("lastName", "Selenium Last Name 2");
+		selenium.sendKeysById("lastName", "Selenium Last Name 1");
 		
 		selenium.sendKeysById("form-field-email", "selenium.test1@abc.com");
 		
@@ -67,16 +72,19 @@ public class B_UserTests
 		selenium.waitUntilId("userCreateAlert");
 		
 		boolean successMessage = selenium.findElementById("userCreateAlert").isDisplayed();
-		assertTrue("User not created successfully!", successMessage);
+		assertTrue("User 1 create message not shown!", successMessage);
 		
-		//selenium.sendKeysByxPath(Constants.xPathAllUsersPageSearch, "selenium.test1@abc.com");
+		selenium.sendKeysByxPath(Constants.xPathDataTableSearch, "selenium.test1@abc.com");
 		
 		boolean userFound = selenium.findTextInTableById("item-table", "selenium.test1@abc.com");
-		assertTrue("User was not found in data table", userFound);
+		assertTrue("User 1 was not found in data table", userFound);
+		
+		mySQL.deleteSeleniumUser("selenium.test1@abc.com");
 	}
 	
+	//	Selenium User 2
 	@Test
-	public void addUser_2() throws InterruptedException
+	public void addUser_2() throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		selenium.setUpWait();
 		
@@ -104,7 +112,7 @@ public class B_UserTests
 		
 		selenium.sendKeysById("form-field-phone", "(123) 456-7890");
 		
-		selenium.sendKeysById("company", "Selenium Test Company !@#$%^&*()"); /* Throws Exception */
+		selenium.sendKeysById("company", "Selenium Test Company");  // Throws Exception with !@#$%^&*()
 		
 		selenium.sendKeysById("department", "Selenium Test Department !@#$%^&*()");
 		
@@ -117,14 +125,19 @@ public class B_UserTests
 		selenium.waitUntilId("userCreateAlert");
 		
 		boolean successMessage = selenium.findElementById("userCreateAlert").isDisplayed();
-		assertTrue("User not created successfully!", successMessage);
+		assertTrue("User 2 create message not shown!", successMessage);
+		
+		selenium.sendKeysByxPath(Constants.xPathDataTableSearch, "selenium.test2!@#$%^&*()@abc.com");
 		
 		boolean userFound = selenium.findTextInTableById("item-table", "selenium.test2!@#$%^&*()@abc.com");
-		assertTrue("User was not found in data table", userFound);
+		assertTrue("User 2 was not found in data table", userFound);
+		
+		mySQL.deleteSeleniumUser("selenium.test2!@#$%^&*()@abc.com");
 	}
 	
+	//	Selenium Test User 3
 	@Test
-	public void addUser_3() throws InterruptedException
+	public void addUser_3() throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		selenium.setUpWait();
 		
@@ -144,6 +157,8 @@ public class B_UserTests
 		
 		selenium.waitUntilId("firstName");
 		
+		selenium.sendKeysById("firstName", "Selenium First Name 3");
+		
 		selenium.sendKeysById("lastName", "Selenium Last Name 3");
 		
 		selenium.sendKeysById("form-field-email", "selenium.test3@abc.com");
@@ -156,12 +171,20 @@ public class B_UserTests
 		
 		selenium.sendKeysById("password", "password");
 		
-		selenium.selectVisibleTextById("form-field-select-2", "admin");
-		
 		selenium.clickElementById("createUserButton");
-		
+			
 		boolean messageDisplayed = selenium.findElementById("userError").isDisplayed();
 		String message = selenium.findElementById("userError").getText();
+			
+		assertTrue("User was created without a Role", messageDisplayed);
+		assertTrue("Wrong Role Error Message", message.contentEquals("Please select at least one role for user."));
+		
+		selenium.selectVisibleTextById("form-field-select-2", "admin");
+		selenium.clearElementById("firstName");
+		selenium.clickElementById("createUserButton");
+		
+		messageDisplayed = selenium.findElementById("userError").isDisplayed();
+		message = selenium.findElementById("userError").getText();
 		
 		assertTrue("User was created without First Name", messageDisplayed);
 		assertTrue("Wrong First Name Error Message", message.contentEquals("Check First Name field and resubmit!"));
@@ -232,21 +255,21 @@ public class B_UserTests
 		assertTrue("User was created without Password", messageDisplayed);
 		assertTrue("Wrong Password Error Message", message.contentEquals("Check Password field and resubmit!"));
 		
-		//	Clears role and checks
 		selenium.sendKeysById("password", "password");
-		selenium.clearElementById("form-field-select-2");
-		selenium.clickElementById("createUserButton");
-		
-		messageDisplayed = selenium.findElementById("userError").isDisplayed();
-		message = selenium.findElementById("userError").getText();
-		
-		assertTrue("User was created without a Role", messageDisplayed);
-		assertTrue("Wrong Role Error Message", message.contentEquals("Please select at least one role for user."));
-		
-		// Finally complete user add
-		selenium.selectVisibleTextById("form-field-select-2", "admin");
 		
 		selenium.clickElementById("createUserButton");
+		
+		selenium.waitUntilId("userCreateAlert");
+		
+		boolean successMessage = selenium.findElementById("userCreateAlert").isDisplayed();
+		assertTrue("User create message not shown!", successMessage);
+		
+		selenium.sendKeysByxPath(Constants.xPathDataTableSearch, "selenium.test3@abc.com");
+		
+		boolean userFound = selenium.findTextInTableById("item-table", "selenium.test3@abc.com");
+		assertTrue("User was not found in data table", userFound);
+		
+		mySQL.deleteSeleniumUser("selenium.test3@abc.com");
 	}
 	/*
 	@Test
@@ -284,7 +307,8 @@ public class B_UserTests
 		
 		//TODO: Assert
 	}
-	
+	*/
+	/*
 	@Test
 	public void deactivateUser()
 	{
@@ -309,6 +333,15 @@ public class B_UserTests
 		
 		String successMessage = selenium.findElementById("itemDeactivatedAlert").getText();
 		assertTrue("Item not deactivated successfully!", successMessage.contains("Success! Item has been deactivated."));
+	}
+	*/
+	/*
+	@Test
+	public void cleanUpSeleniumUsers() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException
+	{
+		mySQL.deleteSeleniumUser("selenium.test1@abc.com");
+		mySQL.deleteSeleniumUser("selenium.test2!@#$%^&*()@abc.com");
+		mySQL.deleteSeleniumUser("selenium.test3@abc.com");
 	}
 	*/
 }

@@ -127,7 +127,6 @@ public class SeleniumFunctions
 	public boolean findTextInTableById(String tableId, String textYouAreLookingFor)
 	{
 		boolean textFound = false;
-		
 		element = driver.findElement(By.id(tableId));
 		tr_collection = element.findElements(By.xpath("id('" + tableId + "')/tbody/tr"));
 		
@@ -137,7 +136,7 @@ public class SeleniumFunctions
 			
 			for(WebElement tdElement : td_collection)
 			{
-				if(tdElement.getText() == textYouAreLookingFor)
+				if(textYouAreLookingFor.contentEquals(tdElement.getText()))
 				{
 					textFound = true;
 				}
