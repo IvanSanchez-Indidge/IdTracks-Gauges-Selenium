@@ -1,4 +1,4 @@
-package Stores;
+package B_Stores;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;

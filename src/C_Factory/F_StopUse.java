@@ -1,4 +1,4 @@
-package Factory;
+package C_Factory;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;

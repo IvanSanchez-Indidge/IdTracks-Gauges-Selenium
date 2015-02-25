@@ -1,4 +1,4 @@
-package AdminTests;
+package A_AdminTests;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package AdminTests;
+package A_AdminTests;
 
 import java.sql.SQLException;
 
