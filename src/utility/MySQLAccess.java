@@ -108,6 +108,54 @@ public class MySQLAccess
 		}
 	}
 	
+	public void createSeleniumInUseItem(String itemName) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	{
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			
+			connect = DriverManager.getConnection(dbConnection, dbUser, dbPassword);
+			
+			connect.prepareStatement("INSERT INTO user (first_name, last_name, email_addr, contact, company_name, department, password, expired, locked, enabled, password_expired) "
+					+ "VALUES ('Selenium Test User', 'Selenium Test User', 'stu@abc.com', '321-654-9871', 'Test Company', 'Test', '$2a$10$D8eImRhdH/1H4uL80N2SouLpg6X3d5nsQ8rRcah8/wO.XfzwyRKBq', 0, 0, 1, 0)").executeUpdate();
+			
+			String email = "stu@abc.com";
+			resultSet = connect.prepareStatement("SELECT user_id FROM user where email_addr = '" + email + "'").executeQuery();
+			resultSet.next();
+			
+			int user_id = resultSet.getInt("user_id");
+			/*
+			System.out.println(user_id);
+			connect.prepareStatement("INSERT INTO user_role (user_id, role_id) "
+					+ "VALUES (" + user_id + ", 1").executeUpdate();
+			*/
+			
+			connect.prepareStatement("INSERT INTO location (location_id, location_name, description, owner_id, user_id, track_id, parent_id, location_type, status) "
+					+ "VALUES ('Location Selenium Test Store', 'Location Selenium Test Store', 'Selenium Test Description', '" + user_id + "', '" + user_id + "', 'Main Selenium Store', 'N/A', 'Store', 'Active')").executeUpdate();
+			
+			connect.prepareStatement("INSERT INTO location (location_id, location_name, description, owner_id, user_id, track_id, parent_id, location_type, status) "
+					+ "VALUES ('Location Selenium Test Factory', 'Location Selenium Test Factory', 'Selenium Test Description', '" + user_id + "', '" + user_id + "', 'Main Selenium Factory', 'N/A', 'Factory', 'Active')").executeUpdate();
+			
+			
+			resultSet = connect.prepareStatement("SELECT location_id FROM location where location_name = 'Location Selenium Test Factory'").executeQuery();
+			resultSet.next();
+			
+			String location_id = resultSet.getString("location_id");
+			
+			connect.prepareStatement("INSERT INTO item (item_id, description, owner_id, user_id, track_id, parent_id, item_type, status, init_loc_id, cur_loc_id, pm_date, pm_interval, num_pm_measures, pm_due_date, def_checkout_time, total_time_checked_out, def_usage_time, total_time_used, pm_cost, total_pm_cost) "
+			+ "VALUES ('" + itemName + "', 'Selenium Test Description', '" + user_id + "', '" + user_id + "', 'track', 'N/A', 'Gauge', 'In Use', '" + location_id + "', '" + location_id + "', '2020-01-13 00:00:00', '10', '0', '2015-02-11 00:00:00', '10', '0', '10', '0','10', '0')").executeUpdate();
+			
+		}
+		catch(SQLException ex)
+		{
+			System.out.println(ex);
+		}
+		finally
+		{
+			connect.close();
+		}
+	}
+	
 	public void deleteSeleniumUser(String email) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		try

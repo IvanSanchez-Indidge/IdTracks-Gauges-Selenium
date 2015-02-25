@@ -24,7 +24,9 @@ public class Constants
 	public static String xPathCheckOutButton =								"/html/body[@class='no-skin']/div[@id='main-container']/div[@id='main-content']/div[@class='main-content']/div[@class='page-content']/div[@class='row']/div[@class='col-xs-12']/div[@class='row']/div[@class='col-xs-12']/div[2]/div[@id='item-table_wrapper']/table[@id='item-table']/tbody/tr[@class='odd']/td[5]/div[@id='table-buttons']/a[@class='green']/i[@class='glyphicon glyphicon-arrow-left bigger-250']";
 	public static String xPathCheckInModalCloseButton =						"/html/body[@class='no-skin modal-open']/div[@id='main-container']/div[@id='main-content']/div[@id='itemCheckedInAlert']/div[@class='modal-dialog modal-sm']/div[@class='modal-content']/div[@class='modal-footer']/button[@class='btn btn-default']";
 	public static String xPathCheckInButton = 								"/html/body[@class='no-skin']/div[@id='main-container']/div[@id='main-content']/div[@class='main-content']/div[@class='page-content']/div[@class='row']/div[@class='col-xs-12']/div[@class='row']/div[@class='col-xs-12']/div[2]/div[@id='item-table_wrapper']/table[@id='item-table']/tbody/tr[@class='odd']/td[5]/div[@id='table-buttons']/a[@class='green']/i[@class='glyphicon glyphicon-arrow-right bigger-250']";
-	
+	public static String xPathStartStopUseButton =								"/html/body[@class='no-skin']/div[@id='main-container']/div[@id='main-content']/div[@class='main-content']/div[@class='page-content']/div[@class='row']/div[@class='col-xs-12']/div[@class='row']/div[@class='col-xs-12']/div[2]/div[@id='item-table_wrapper']/table[@id='item-table']/tbody/tr[@class='odd']/td[8]/div[@id='table-buttons']/a[@class='btn btn-primary btn-xs']";
+	public static String xPathStartUseModalCloseButton =					"/html/body[@class='no-skin modal-open']/div[@id='main-container']/div[@id='main-content']/div[@id='startUsageAlert']/div[@class='modal-dialog modal-sm']/div[@class='modal-content']/div[@class='modal-footer']/button[@class='btn btn-default']";
+	public static String xPathStopUseModalCloseButton =						"/html/body[@class='no-skin modal-open']/div[@id='main-container']/div[@id='main-content']/div[@id='stopUsageAlert']/div[@class='modal-dialog modal-sm']/div[@class='modal-content']/div[@class='modal-footer']/button[@class='btn btn-default']";
 	/* Left Nav Ids */
 	public static String idGoToAddItem = 									"goToAddItem";
 	public static String idGoToAllItems = 									"goToAllItems";
@@ -34,5 +36,7 @@ public class Constants
 	public static String idGoToAllUsers = 									"goToAllUsers";
 	public static String idGoToCheckIn =									"goToCheckIn";
 	public static String idGoToCheckOut =									"goToCheckOut";
+	public static String idGoToFactory =									"goToFactory";
+	
 	
 }
