@@ -142,8 +142,8 @@ public class MySQLAccess
 			
 			String location_id = resultSet.getString("location_id");
 			
-			connect.prepareStatement("INSERT INTO item (item_id, description, owner_id, user_id, track_id, parent_id, item_type, status, init_loc_id, cur_loc_id, pm_date, pm_interval, num_pm_measures, pm_due_date, def_checkout_time, total_time_checked_out, def_usage_time, total_time_used, pm_cost, total_pm_cost) "
-			+ "VALUES ('" + itemName + "', 'Selenium Test Description', '" + user_id + "', '" + user_id + "', 'track', 'N/A', 'Gauge', 'In Use', '" + location_id + "', '" + location_id + "', '2020-01-13 00:00:00', '10', '0', '2015-02-11 00:00:00', '10', '0', '10', '0','10', '0')").executeUpdate();
+			connect.prepareStatement("INSERT INTO item (item_id, description, owner_id, user_id, track_id, parent_id, item_type, status, init_loc_id, cur_loc_id, pm_date, pm_interval, num_pm_measures, pm_due_date, def_checkout_time, total_time_checked_out, def_usage_time, total_time_used, cur_usage_start_time, pm_cost, total_pm_cost) "
+			+ "VALUES ('" + itemName + "', 'Selenium Test Description', '" + user_id + "', '" + user_id + "', 'track', 'N/A', 'Gauge', 'In Use', '" + location_id + "', '" + location_id + "', '2015-02-26 22:44:30', '10', '0', '2015-02-26 22:44:30', '10', '0', '10', '0', '02/26/2015 22:44:30','10', '0')").executeUpdate();
 			
 		}
 		catch(SQLException ex)
@@ -231,7 +231,7 @@ public class MySQLAccess
 		
 			connect = DriverManager.getConnection(dbConnection, dbUser, dbPassword);
 			
-			resultSet = connect.prepareStatement("SELECT pm_id FROM pm where item_id = " + item_id + "'").executeQuery();
+			resultSet = connect.prepareStatement("SELECT pm_id FROM pm where item_id = '" + item_id + "'").executeQuery();
 			resultSet.next();
 			
 			int pm_id = resultSet.getInt("pm_id");

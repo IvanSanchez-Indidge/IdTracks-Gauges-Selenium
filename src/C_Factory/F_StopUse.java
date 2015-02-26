@@ -21,7 +21,8 @@ public class F_StopUse
 	@Before
 	public void setUp() throws Exception
 	{
-		mySQL.createSeleniumFactoryItem("Selenium Stop Use Test Item");
+		mySQL.createSeleniumInUseItem("Selenium Stop Use Test Item");
+		
 		selenium.setUp();
 	}
 
@@ -29,6 +30,7 @@ public class F_StopUse
 	public void closeBrowser() throws Exception
 	{
 		selenium.closeBrowser();
+		
 		mySQL.deleteSeleniumUser("stu@abc.com");
 		mySQL.deleteSeleniumLocation("Location Selenium Test Store");
 		mySQL.deleteSeleniumLocation("Location Selenium Test Factory");
@@ -36,7 +38,7 @@ public class F_StopUse
 	}
 	
 	@Test
-	public void checkOut() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void stopUse() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{	
 		selenium.setUpWait();
 		

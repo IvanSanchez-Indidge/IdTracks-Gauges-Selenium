@@ -21,7 +21,7 @@ public class F_StartUse
 	@Before
 	public void setUp() throws Exception
 	{
-		mySQL.createSeleniumInUseItem("Selenium Stop Use Test Item");
+		mySQL.createSeleniumFactoryItem("Selenium Stop Use Test Item");
 		selenium.setUp();
 	}
 
@@ -36,7 +36,7 @@ public class F_StartUse
 	}
 	
 	@Test
-	public void checkOut() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void startUse() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{	
 		selenium.setUpWait();
 		
