@@ -1,4 +1,4 @@
-package C_Factory;
+package D_Calibrate;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -13,7 +13,7 @@ import utility.Constants;
 import utility.MySQLAccess;
 import utility.SeleniumFunctions;
 
-public class F_StartUse
+public class G_CalibrateTests
 {
 	SeleniumFunctions selenium = new SeleniumFunctions();
 	MySQLAccess mySQL = new MySQLAccess();
@@ -21,7 +21,7 @@ public class F_StartUse
 	@Before
 	public void setUp() throws Exception
 	{
-		mySQL.createSeleniumInUseItem("Selenium Stop Use Test Item");
+		mySQL.createSeleniumStoreItem("Selenium Calibration Test Item");
 		selenium.setUp();
 	}
 
@@ -32,32 +32,32 @@ public class F_StartUse
 		mySQL.deleteSeleniumUser("stu@abc.com");
 		mySQL.deleteSeleniumLocation("Location Selenium Test Store");
 		mySQL.deleteSeleniumLocation("Location Selenium Test Factory");
-		mySQL.deleteSeleniumItem("Selenium Stop Use Test Item");
+		mySQL.deleteSeleniumItem("Selenium Calibration Test Item");
 	}
 	
 	@Test
-	public void checkOut() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void calibrate_1() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{	
 		selenium.setUpWait();
 		
 		selenium.adminLogin();
 		
-		selenium.waitUntilId(Constants.idGoToFactory);
+		selenium.waitUntilId(Constants.idGoToCalibrate);
 		
-		selenium.clickElementById(Constants.idGoToFactory);
+		selenium.clickElementById(Constants.idGoToCalibrate);
 		
 		selenium.waitUntilId("item-table");
 		
-		selenium.sendKeysByxPath(Constants.xPathDataTableSearch, "Selenium Stop Use Test Item");
+		selenium.sendKeysByxPath(Constants.xPathDataTableSearch, "Selenium Calibration Test Item");
 		
-		boolean itemFound = selenium.findTextInTableById("item-table", "Selenium Stop Use Test Item");
+		boolean itemFound = selenium.findTextInTableById("item-table", "Selenium Calibration Test Item");
 		assertTrue("Item was not found in table!", itemFound);
 		
 		selenium.clickElementByxPath(Constants.xPathStartStopButton);
 		
-		selenium.waitUntilId("startUsageAlert");
+		selenium.waitUntilId("");
 		
-		boolean successMessage = selenium.findElementById("startUsageAlert").isDisplayed();
+		boolean successMessage = selenium.findElementById("").isDisplayed();
 		assertTrue("Item start use modal was not displayed!", successMessage);
 		
 		selenium.clickElementByxPath(Constants.xPathStartUseModalCloseButton);

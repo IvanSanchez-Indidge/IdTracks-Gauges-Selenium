@@ -53,7 +53,7 @@ public class F_StopUse
 		boolean itemFound = selenium.findTextInTableById("item-table", "Selenium Stop Use Test Item");
 		assertTrue("Item was not found in table!", itemFound);
 		
-		selenium.clickElementByxPath(Constants.xPathStartStopUseButton);
+		selenium.clickElementByxPath(Constants.xPathStartStopButton);
 		
 		selenium.waitUntilId("stopUsageAlert");
 		
