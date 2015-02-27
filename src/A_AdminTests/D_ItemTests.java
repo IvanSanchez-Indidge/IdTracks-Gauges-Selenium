@@ -95,6 +95,8 @@ public class D_ItemTests
 	@Test
 	public void addItem_2() throws InterruptedException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException
 	{
+		mySQL.deleteSeleniumItem("Selenium Test Item 2 !@#$%^&*()");
+		
 		selenium.setUpWait();
 		
 		selenium.adminLogin();
@@ -119,7 +121,7 @@ public class D_ItemTests
 		
 		selenium.selectVisibleTextById("ownerEmail", "John Doe (john.doe@abc.com)");
 		
-		selenium.sendKeysById("trackName", "Selenium Test Track Name 2 !@#$%^&*()");
+		selenium.sendKeysById("trackName", "Selenium Test Track Name 2");
 		
 		selenium.clickElementByxPath(Constants.xPathAddItemPageGaugeRadioButton);
 		
