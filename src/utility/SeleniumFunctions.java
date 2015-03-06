@@ -163,4 +163,9 @@ public class SeleniumFunctions
 		
 		return textFound;
 	}
+	
+	public int findNumRowsInTableById(String tableId)
+	{
+		return driver.findElements(By.xpath("//table[@id='" + tableId + "']/tbody/tr")).size();
+	}
 }

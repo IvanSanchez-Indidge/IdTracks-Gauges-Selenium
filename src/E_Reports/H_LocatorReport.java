@@ -20,7 +20,7 @@ public class H_LocatorReport
 	
 	@Before
 	public void setUp() throws Exception
-	{
+	{		
 		selenium.setUp();
 	}
 
@@ -28,6 +28,11 @@ public class H_LocatorReport
 	public void closeBrowser() throws Exception
 	{
 		selenium.closeBrowser();
+		
+		mySQL.deleteSeleniumUser("stu@abc.com");
+		mySQL.deleteSeleniumLocation("Location Selenium Test Store");
+		mySQL.deleteSeleniumLocation("Location Selenium Test Factory");
+		mySQL.deleteSeleniumItem("Selenium Locator Report Test Item");
 	}
 	
 	@Test
@@ -36,5 +41,31 @@ public class H_LocatorReport
 		selenium.setUpWait();
 		
 		selenium.adminLogin();
+		
+		selenium.waitUntilxPath(Constants.xPathReportsLeftNav);
+		
+		selenium.clickElementByxPath(Constants.xPathReportsLeftNav);
+		
+		selenium.waitUntilId(Constants.idGoToLocatorReport);
+		
+		selenium.clickElementById(Constants.idGoToLocatorReport);
+		
+		selenium.waitUntilId("item-table");
+		
+		int numRowsBefore = selenium.findNumRowsInTableById("item-table");
+		
+		mySQL.createSeleniumStoreItem("Selenium Locator Report Test Item");
+		
+		selenium.clickElementById(Constants.idGoToCreateRecallReport);
+		
+		selenium.waitUntilId(Constants.idCreateRecallReportForm);
+		
+		selenium.clickElementById(Constants.idGoToLocatorReport);
+		
+		selenium.waitUntilId("item-table");
+		
+		int numRowsAfter = selenium.findNumRowsInTableById("item-table");
+		
+		assertTrue("Report not showing newly added item!", numRowsAfter == numRowsBefore + 1);
 	}
 }
