@@ -36,7 +36,7 @@ public class E_CheckIn
 	}
 	
 	@Test
-	public void checkOut() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void checkIn() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{	
 		selenium.setUpWait();
 		
