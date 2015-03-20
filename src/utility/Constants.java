@@ -50,6 +50,10 @@ public class Constants
 	public static String idGoToCalibrate =									"goToCalibrate";
 	public static String idGoToCreateRecallReport =							"goToCreateRecallReport";
 	public static String idGoToLocatorReport =								"goToLocatorReport";
+	public static String idGoToGaugeReport =								"goToGaugeReport";
+	public static String idGoToCalibrationReport =							"goToCalibrationReport";
+	public static String idGoToTraceReport =								"goToTraceReport";
+	public static String idGoToUsageReport =								"goToUsageReport";
 	
 	/* Report Form Ids */
 	

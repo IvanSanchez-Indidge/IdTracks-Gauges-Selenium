@@ -1,7 +1,6 @@
 package E_Reports;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import java.sql.SQLException;
 
@@ -36,5 +35,25 @@ public class H_GaugeReport
 		selenium.setUpWait();
 		
 		selenium.adminLogin();
+		
+		selenium.waitUntilxPath(Constants.xPathReportsLeftNav);
+		
+		selenium.clickElementByxPath(Constants.xPathReportsLeftNav);
+		
+		selenium.waitUntilId(Constants.idGoToGaugeReport);
+		
+		selenium.clickElementById(Constants.idGoToGaugeReport);	
+		
+		selenium.waitUntilId("form-field-select-2");
+		
+		selenium.selectVisibleTextById("form-field-select-2", "D-45123456");
+		
+		selenium.clickElementById(Constants.idCreateReportButton);
+		
+		selenium.waitUntilId("item-table");
+		
+		int numRows = selenium.findNumRowsInTableById("item-table");
+		
+		assertTrue("Fields missing!", numRows == 13);
 	}
 }
