@@ -182,7 +182,6 @@ public class G_CalibrateTests
 	}
 	*/
 	
-	/*
 	@Test
 	public void calibrate_3() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
@@ -239,6 +238,133 @@ public class G_CalibrateTests
 		
 		selenium.clickElementById("saveEditItem");
 		
+		boolean errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		String errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please select approval status!"));
+		
+		selenium.clickElementByxPath(Constants.xPathCalibrationApprovalPassButton);
+		
+		selenium.clickElementById("saveEditItem");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please select Measurement Type!"));
+		
+		selenium.clickElementByxPath(Constants.xPathCalibrationStandardLengthButton);
+		
+		selenium.clearElementById("condition");
+		
+		selenium.clickElementById("saveEditItem");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Check Condition field and resubmit!"));
+		
+		selenium.sendKeysById("condition", "Great");
+		selenium.clearElementById("cost");
+		
+		selenium.clickElementById("saveEditItem");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Cost!"));
+		
+		selenium.sendKeysById("cost", "10");
+		selenium.clearElementById("stdUsed");
+		
+		selenium.clickElementById("saveEditItem");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Check Standard used field and resubmit!"));
+		
+		selenium.sendKeysById("stdUsed", "10");
+		selenium.clearElementById("standard");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Expected Measurement!"));
+		
+		selenium.sendKeysById("standard", "10");
+		selenium.clearElementById("tolerance");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Tolerance!"));
+		
+		selenium.sendKeysById("tolerance", "10");
+		selenium.clearElementById("measured");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Actual Measurement!"));
+		
+		selenium.sendKeysById("measured", "10");
+		selenium.clearElementById("temperature");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Temperature!"));
+		
+		selenium.sendKeysById("measured", "10");
+		selenium.clearElementById("temperature");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Temperature!"));
+		
+		selenium.sendKeysById("temperature", "10");
+		selenium.clearElementById("pressure");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Pressure"));
+		
+		selenium.sendKeysById("pressure", "10");
+		selenium.clearElementById("humidity");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Please enter a numeric value for Humidity"));
+		
+		selenium.sendKeysById("humidity", "10");
+		selenium.clearElementById("comments");
+		
+		errorMessageDisplayed = selenium.findElementById("calibrateError").isDisplayed();
+		errorMessage = selenium.findElementById("calibrateError").getText();
+		
+		assertTrue("Calibration error message not displayed!", errorMessageDisplayed);
+		assertTrue("Wrong calibration error message displayed", errorMessage.contentEquals("Check Comments field and resubmit!"));
+		
+		selenium.sendKeysById("comments", "Test!!!");
+				
+		successMessage = selenium.findElementById("calibratedAlert").isDisplayed();
+		assertTrue("Item calibrated alert modal was not displayed!", successMessage);
+		
 		selenium.clickElementByxPath(Constants.xPathCalibrationModalSuccessCloseButton);
 		
 		selenium.sendKeysByxPath(Constants.xPathDataTableSearch, "Selenium Calibration Test Item");
@@ -248,6 +374,8 @@ public class G_CalibrateTests
 		
 		itemFound = selenium.findTextInTableById("item-table", "Ready");
 		assertTrue("Item has not properly started calibration!", itemFound);
+		
+		mySQL.deleteSeleniumPM("Selenium Calibration Test Item");
+		mySQL.deleteSeleniumItem("Selenium Calibration Test Item");
 	}
-	*/
 }
