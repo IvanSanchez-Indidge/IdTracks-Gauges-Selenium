@@ -141,6 +141,12 @@ public class SeleniumFunctions
 		clickThis.selectByVisibleText(textToSelect);
 	}
 	
+	public void clickRadioBoxWithIdByValue(String id, String value)
+	{
+		String radioButtonXPath = "//input[contains(@id, '" + id + "') and contains(@value, " + value + ")]";
+		driver.findElement(By.xpath(radioButtonXPath)).click();
+	}
+	
 	/* Find text within a table providing the tableId. You want to first search for what you're looking for, then use this. Searching an entire table not yet implemented */
 	public boolean findTextInTableById(String tableId, String textYouAreLookingFor)
 	{
